@@ -68,7 +68,7 @@ export default{
   methods:{
     async getRestaurant(){
       await axios
-        .get("http://127.0.0.1:8000/api/restaurants")
+        .get("https://guarded-mesa-43378.herokuapp.com/api/restaurants")
         .then((response => {
           this.restaurants = response.data.data.restaurant;
         }))
@@ -77,21 +77,21 @@ export default{
     },
     async getPrefecture(){
       await axios
-        .get("http://127.0.0.1:8000/api/prefectures")
+        .get("https://guarded-mesa-43378.herokuapp.com/api/prefectures")
         .then((response) => {
           this.prefectures = response.data.data;
         })
     },
     async getGenre(){
       await axios
-        .get("http://127.0.0.1:8000/api/genres")
+        .get("https://guarded-mesa-43378.herokuapp.com/api/genres")
         .then((response) => {
           this.genres = response.data.data;
         })
     },
     async deleteRestaurant(restaurant){
       await axios 
-        .delete('http://127.0.0.1:8000/api/auth/admin/restaurants',{
+        .delete('https://guarded-mesa-43378.herokuapp.com/api/auth/admin/restaurants',{
           data:{
             id:restaurant.id
           }

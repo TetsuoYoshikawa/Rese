@@ -88,14 +88,14 @@ export default {
   methods:{
     async getRestaurantDetail() {
       await axios
-        .get("http://127.0.0.1:8000/api/restaurants/" + this.id)
+        .get("https://guarded-mesa-43378.herokuapp.com/api/restaurants/" + this.id)
         .then((response) => {
           this.restaurants = response.data.data;
         });
     },
     async postReservation(){
       await axios
-        .post("http://127.0.0.1:8000/api/auth/reservations",{
+        .post("https://guarded-mesa-43378.herokuapp.com/api/auth/reservations",{
           user_id:this.$store.state.user_id,
           restaurant_id:this.id,
           date:this.date,

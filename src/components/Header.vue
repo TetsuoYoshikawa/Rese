@@ -16,7 +16,7 @@
               管理者専用
               </a>
             </li>
-            <li class="moble-ul ber">
+            <li class="moble-ul ber" v-else>
               <a @click="$router.push({path: '/mypage'}, () => {})">
               マイページ
               </a>

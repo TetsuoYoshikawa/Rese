@@ -20,7 +20,6 @@
             <div class="flex">
               <p >Restaurant Name:</p>
               <input class="label" v-model="restaurant_name"/>
-              <div class="under-line"></div>
             </div>
             <div class="flex">
               <p>Prefectures:</p>
@@ -28,7 +27,6 @@
                 <option value="">Prefecture select</option>
                 <option v-for="(prefecture,index) in prefectures" :key="index" :value="prefecture.id">{{prefecture.name}}</option>
               </select>
-              <div class="under-line"></div>
             </div>
             <div class="flex">
               <p>Genres:</p>
@@ -40,7 +38,6 @@
             <div class="flex">
               <p>Description:</p>
               <textarea class="label" v-model="restaurant_description"></textarea>
-              <div class="under-line"></div>
             </div>
             <button type="submit" @click="putRestaurant()">店舗情報変更</button>
           </div>
@@ -49,7 +46,6 @@
           <div class="flex">
             <p>Restaurant Name:</p>
             <input class="label" v-model="restaurant_name" />
-            <div class="under-line"></div>
           </div>
           <div class="flex">
             <p>Prefectures:</p>
@@ -57,7 +53,6 @@
               <option value="">Prefecture select</option>
               <option v-for="(prefecture,index) in prefectures" :key="index" :value="prefecture.id">{{prefecture.name}}</option>
             </select>
-            <div class="under-line"></div>
           </div>
           <div class="flex">
             <p>Genres:</p>
@@ -69,7 +64,6 @@
           <div class="flex">
             <p>Description:</p>
             <textarea class="label" v-model="restaurant_description"></textarea>
-            <div class="under-line"></div>
           </div>
           <div class="flex">
             <p>Restaurant Picture:</p>
@@ -136,40 +130,7 @@ export default{
           this.pictures = response.data.data;
         })
     },
-    confirmImage(e) {
-      this.message = "";
-      this.file = e.target.files[0];
-      if (!this.file.type.match("image.*")) {
-        this.message = "画像ファイルを選択して下さい";
-        this.confirmedImage = "";
-        return;
-      }
-      this.createImage(this.file);
-    },
-      createImage(file) {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = e => {
-          this.confirmedImage = e.target.result;
-        };
-    },
-    async onFileChange(event) {
-      if(event.target.files.lenght === 0){
-        return false
-      }
-      const reader = new FileReader()
-      reader.onload = e => {
-        this.preview = e.target.result
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    },
     putRestaurant() {
-    //  formData.append("id: this.restaurant_id");
-    //  formData.append("name: this.restaurant_name");
-    //  formData.append("prefecture_id: this.prefecture_id");
-    //  formData.append("genre_id: this.genre_id");
-    //  formData.append("description: this.restaurant_description");
-      
        axios
         .put('http://127.0.0.1:8000/api/auth/admin/restaurants', {
           id: this.restaurant_id,
@@ -186,17 +147,6 @@ export default{
         console.log(error);
         alert('店舗登録できませんでした。もう一度、お試しください');
         });
-    },
-    postImage() {
-      const formData = new FormData();
-      formData.append("image_url:this.file");
-      formData.append("id: this.restaurant.id");
-      axios
-        .post('http://127.0.0.1:8000/api/restaurants/image', formData)
-        .then((response) => {
-          console.log(response);
-          alert('写真を変更いたしました')
-        })
     },
     postRestaurant() {
       axios
@@ -229,6 +179,9 @@ export default{
 </script>
 
 <style scoped>
+/*///////////////
+    ページ全体  
+///////////////*/
 .admin{
   text-align: center;
   padding-top:100px;
@@ -241,7 +194,6 @@ export default{
 }
 .card-title{
   background-color: #ff7300;
-  
 }
 .card-title h2 {
   color: white;
@@ -295,16 +247,6 @@ select{
 .top{
   align-items:initial;
 }
-.left-side{
-  box-sizing: border-box;
-  width: 25%;
-}
-.flex-left{
-  display: flex;
-}
-.input-width600{
-  width: 600px;
-}
 button {
   padding: 10px 20px;
   background-color: #ff7300;
@@ -312,13 +254,5 @@ button {
   border-radius: 10px;
   color: white;
   margin: 30px 0;
-}
-.under-line {
-  width: 200px;
-  height: 2px;
-  background: skyBlue;
-  transform-origin: center center;
-  transform: scaleX(0);
-  transition: transform 0.18s ease-out;
 }
 </style>

@@ -42,7 +42,7 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       const responseLogin = await axios
-        .post("http://127.0.0.1:8000/api/login", {
+        .post("https://guarded-mesa-43378.herokuapp.com/api/login", {
           email: email,
           password: password,
           
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     async logout({ commit }) {
       commit("auth",false);
       const responseLogout = await axios
-        .post("http://127.0.0.1:8000/api/auth/logout", 
+        .post("https://guarded-mesa-43378.herokuapp.com/api/auth/logout", 
         { data: ""},
         { headers: { Authorization: 'Bearer ' + this.state.token } }
       )
