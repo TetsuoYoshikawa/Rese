@@ -108,7 +108,7 @@ export default{
     },
     async getRestaurant(){
       await axios
-        .get("http://127.0.0.1:8000/api/restaurants")
+        .get("https://stark-reef-16789.herokuapp.com/api/restaurants")
         .then((response => {
           this.restaurants = response.data.data.restaurant;
         }))
@@ -117,14 +117,14 @@ export default{
     },
     async getPrefecture(){
       await axios
-        .get("http://127.0.0.1:8000/api/prefectures")
+        .get("https://stark-reef-16789.herokuapp.com/api/prefectures")
         .then((response) => {
           this.prefectures = response.data.data;
         })
     },
     async getGenre(){
       await axios
-        .get("http://127.0.0.1:8000/api/genres")
+        .get("https://stark-reef-16789.herokuapp.com/api/genres")
         .then((response) => {
           this.genres = response.data.data;
           this.pictures = response.data.data;
@@ -132,7 +132,7 @@ export default{
     },
     putRestaurant() {
        axios
-        .put('http://127.0.0.1:8000/api/auth/admin/restaurants', {
+        .put('https://stark-reef-16789.herokuapp.com/api/auth/admin/restaurants', {
           id: this.restaurant_id,
           name: this.restaurant_name,
           prefecture_id: this.prefecture_id,

@@ -61,7 +61,7 @@ export default new Vuex.Store({
     async logout({ commit }) {
       commit("auth",false);
       const responseLogout = await axios
-        .post("https://guarded-mesa-43378.herokuapp.com/api/auth/logout", 
+        .post("hhttps://stark-reef-16789.herokuapp.com/api/auth/logout", 
         { data: ""},
         { headers: { Authorization: 'Bearer ' + this.state.token } }
       )

@@ -88,7 +88,7 @@ export default {
   methods: {
     async getFavorite(){
       await axios
-        .get('https://guarded-mesa-43378.herokuapp.com/api/auth/favorites')
+        .get('https://stark-reef-16789.herokuapp.com/api/auth/favorites')
         .then((response) => {
           this.favorites = response.data.data;
           if(this.favorites == 0){
@@ -103,7 +103,7 @@ export default {
     },
     async getReservation(){
       await axios 
-      .get('https://guarded-mesa-43378.herokuapp.com/api/auth/reservations')
+      .get('https://stark-reef-16789.herokuapp.com/api/auth/reservations')
       .then((response) => {
         this.reserves = response.data.data;
       if(this.reserves == 0){
@@ -117,7 +117,7 @@ export default {
     },
     async favoriteDelete(restaurant){
       await axios
-      .delete('https://guarded-mesa-43378.herokuapp.com/api/auth/favorites',{
+      .delete('https://stark-reef-16789.herokuapp.com/api/auth/favorites',{
         data:{
           user_id:restaurant.user_id,
           restaurant_id:restaurant.restaurant_id
@@ -130,7 +130,7 @@ export default {
     },
     async deleteReservation(reserve){
       await axios
-      .delete('https://guarded-mesa-43378.herokuapp.com/api/auth/reservations',{
+      .delete('https://stark-reef-16789.herokuapp.com/api/auth/reservations',{
         data:{
           user_id:reserve.user_id,
           restaurant_id:reserve.restaurant_id

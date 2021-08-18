@@ -68,7 +68,7 @@ export default{
   methods:{
     async getRestaurant(){
       await axios
-        .get("https://guarded-mesa-43378.herokuapp.com/api/restaurants")
+        .get("https://stark-reef-16789.herokuapp.com/api/restaurants")
         .then((response => {
           this.restaurants = response.data.data.restaurant;
         }))
@@ -77,21 +77,21 @@ export default{
     },
     async getPrefecture(){
       await axios
-        .get("https://guarded-mesa-43378.herokuapp.com/api/prefectures")
+        .get("https://stark-reef-16789.herokuapp.com/api/prefectures")
         .then((response) => {
           this.prefectures = response.data.data;
         })
     },
     async getGenre(){
       await axios
-        .get("https://guarded-mesa-43378.herokuapp.com/api/genres")
+        .get("https://stark-reef-16789.herokuapp.com/api/genres")
         .then((response) => {
           this.genres = response.data.data;
         })
     },
     async deleteRestaurant(restaurant){
       await axios 
-        .delete('https://guarded-mesa-43378.herokuapp.com/api/auth/admin/restaurants',{
+        .delete('https://stark-reef-16789.herokuapp.com/api/auth/admin/restaurants',{
           data:{
             id:restaurant.id
           }

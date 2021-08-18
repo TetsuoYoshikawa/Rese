@@ -88,14 +88,14 @@ export default {
   methods:{
     async getRestaurantDetail() {
       await axios
-        .get("https://guarded-mesa-43378.herokuapp.com/api/restaurants/" + this.id)
+        .get("https://stark-reef-16789.herokuapp.com/api/restaurants/" + this.id)
         .then((response) => {
           this.restaurants = response.data.data;
         });
     },
     async postReservation(){
       await axios
-        .post("https://guarded-mesa-43378.herokuapp.com/api/auth/reservations",{
+        .post("https://stark-reef-16789.herokuapp.com/api/auth/reservations",{
           user_id:this.$store.state.user_id,
           restaurant_id:this.id,
           date:this.date,

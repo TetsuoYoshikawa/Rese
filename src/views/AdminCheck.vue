@@ -53,7 +53,7 @@ export default {
   methods: {
     async getReservation(){
       await axios 
-      .get('http://127.0.0.1:8000/api/auth/reservations')
+      .get('https://stark-reef-16789.herokuapp.com/api/auth/reservations')
       .then((response) => {
         this.reserves = response.data.data;
       if(this.reserves == 0){

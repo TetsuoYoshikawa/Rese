@@ -42,7 +42,7 @@ export default {
   methods:{
     async register(){
       await axios
-      .post('https://guarded-mesa-43378.herokuapp.com/api/register',{
+      .post('https://stark-reef-16789.herokuapp.com/api/register',{
         name:this.name,
         email:this.email,
         password:this.password,
