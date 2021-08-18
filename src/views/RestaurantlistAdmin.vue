@@ -89,8 +89,8 @@ export default{
           this.genres = response.data.data;
         })
     },
-    async deleteRestaurant(restaurant){
-      await axios 
+    deleteRestaurant(restaurant){
+      axios 
         .delete('https://stark-reef-16789.herokuapp.com/api/auth/admin/restaurants',{
           data:{
             id:restaurant.id

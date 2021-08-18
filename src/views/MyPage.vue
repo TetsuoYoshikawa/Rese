@@ -115,8 +115,8 @@ export default {
         console.log(error)
       });
     },
-    async favoriteDelete(restaurant){
-      await axios
+    avoriteDelete(restaurant){
+      axios
       .delete('https://stark-reef-16789.herokuapp.com/api/auth/favorites',{
         data:{
           user_id:restaurant.user_id,
@@ -128,8 +128,8 @@ export default {
         alert('いいねを削除しました')
       })
     },
-    async deleteReservation(reserve){
-      await axios
+    deleteReservation(reserve){
+      axios
       .delete('https://stark-reef-16789.herokuapp.com/api/auth/reservations',{
         data:{
           user_id:reserve.user_id,

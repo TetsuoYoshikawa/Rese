@@ -40,8 +40,8 @@ export default {
     };
   },
   methods:{
-    async register(){
-      await axios
+    register(){
+      axios
       .post('https://stark-reef-16789.herokuapp.com/api/register',{
         name:this.name,
         email:this.email,

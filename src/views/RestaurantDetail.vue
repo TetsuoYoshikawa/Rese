@@ -93,8 +93,8 @@ export default {
           this.restaurants = response.data.data;
         });
     },
-    async postReservation(){
-      await axios
+    postReservation(){
+      axios
         .post("https://stark-reef-16789.herokuapp.com/api/auth/reservations",{
           user_id:this.$store.state.user_id,
           restaurant_id:this.id,
