@@ -105,7 +105,7 @@ export default{
     },
     async getFavorite(){
       await axios
-        .get('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites')
+        .get('http://127.0.0.1:8000/api/auth/favorites')
         .then((response) => {
           this.favorites = response.data.data;
         })
@@ -115,7 +115,7 @@ export default{
     },
     favoritePost(restaurant){
       axios
-      .post('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
+      .post('http://127.0.0.1:8000/api/auth/favorites',{
         user_id:this.$store.state.user_id,
         restaurant_id:restaurant.id,
       })
@@ -130,7 +130,7 @@ export default{
     },
     favoriteDelete(restaurant){
       axios
-      .delete('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
+      .delete('http://127.0.0.1:8000/api/auth/favorites',{
         data:{
           user_id:this.$store.state.user_id,
           restaurant_id:restaurant.id
