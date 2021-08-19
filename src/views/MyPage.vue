@@ -115,7 +115,7 @@ export default {
         console.log(error)
       });
     },
-    avoriteDelete(restaurant){
+    favoriteDelete(restaurant){
       axios
       .delete('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
         data:{

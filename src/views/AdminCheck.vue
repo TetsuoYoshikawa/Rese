@@ -20,11 +20,11 @@
               </tr>
               <tr  v-for="(reserve,index) in reserves" :key="index">
                 <td>{{reserve.id}}</td>
-                <td>{{reserve.user_name}}</td>
+                <td>{{reserve.user.name}}</td>
                 <td>{{reserve.restaurant.name}}</td>
-                <td>{{reserve.restaurant.prefecture}}</td>
-                <td>{{reserve.restaurant.genre}}</td>
-                <td>{{reserve.restaurant.datetime}}</td>
+                <td>{{reserve.restaurant.prefecture.name}}</td>
+                <td>{{reserve.restaurant.genre.name}}</td>
+                <td>{{reserve.time}}</td>
                 <td>{{reserve.number_reservation}}</td>
               </tr>
             </table>
