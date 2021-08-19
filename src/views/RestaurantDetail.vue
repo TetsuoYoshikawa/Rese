@@ -88,14 +88,14 @@ export default {
   methods:{
     async getRestaurantDetail() {
       await axios
-        .get("https://limitless-earth-70755.herokuapp.com/api/restaurants/" + this.id)
+        .get("https://infinite-beyond-20743.herokuapp.com/api/restaurants/" + this.id)
         .then((response) => {
           this.restaurants = response.data.data;
         });
     },
     postReservation(){
       axios
-        .post("https://limitless-earth-70755.herokuapp.com/api/auth/reservations",{
+        .post("https://infinite-beyond-20743.herokuapp.com/api/auth/reservations",{
           user_id:this.$store.state.user_id,
           restaurant_id:this.id,
           date:this.date,

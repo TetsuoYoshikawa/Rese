@@ -68,7 +68,7 @@ export default{
   methods:{
     async getRestaurant(){
       await axios
-        .get("https://limitless-earth-70755.herokuapp.com/api/restaurants")
+        .get("https://infinite-beyond-20743.herokuapp.com/api/restaurants")
         .then((response => {
           this.restaurants = response.data.data.restaurant;
         }))
@@ -77,21 +77,21 @@ export default{
     },
     async getPrefecture(){
       await axios
-        .get("https://limitless-earth-70755.herokuapp.com/api/prefectures")
+        .get("https://infinite-beyond-20743.herokuapp.com/api/prefectures")
         .then((response) => {
           this.prefectures = response.data.data;
         })
     },
     async getGenre(){
       await axios
-        .get("https://limitless-earth-70755.herokuapp.com/api/genres")
+        .get("hhttps://infinite-beyond-20743.herokuapp.com/api/genres")
         .then((response) => {
           this.genres = response.data.data;
         })
     },
     deleteRestaurant(restaurant){
       axios 
-        .delete('https://limitless-earth-70755.herokuapp.com/api/auth/admin/restaurants',{
+        .delete('https://infinite-beyond-20743.herokuapp.com/api/auth/admin/restaurants',{
           data:{
             id:restaurant.id
           }

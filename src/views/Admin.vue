@@ -108,7 +108,7 @@ export default{
     },
     async getRestaurant(){
       await axios
-        .get("https://limitless-earth-70755.herokuapp.com/api/restaurants")
+        .get("https://infinite-beyond-20743.herokuapp.com/api/restaurants")
         .then((response => {
           this.restaurants = response.data.data.restaurant;
         }))
@@ -117,14 +117,14 @@ export default{
     },
     async getPrefecture(){
       await axios
-        .get("https://limitless-earth-70755.herokuapp.com/api/prefectures")
+        .get("https://infinite-beyond-20743.herokuapp.com/api/prefectures")
         .then((response) => {
           this.prefectures = response.data.data;
         })
     },
     async getGenre(){
       await axios
-        .get("https://limitless-earth-70755.herokuapp.com/api/genres")
+        .get("https://infinite-beyond-20743.herokuapp.com/api/genres")
         .then((response) => {
           this.genres = response.data.data;
           this.pictures = response.data.data;
@@ -132,7 +132,7 @@ export default{
     },
     putRestaurant() {
        axios
-        .put('https://limitless-earth-70755.herokuapp.com/api/auth/admin/restaurants', {
+        .put('https://infinite-beyond-20743.herokuapp.com/api/auth/admin/restaurants', {
           id: this.restaurant_id,
           name: this.restaurant_name,
           prefecture_id: this.prefecture_id,
@@ -150,7 +150,7 @@ export default{
     },
     postRestaurant() {
       axios
-        .post('https://limitless-earth-70755.herokuapp.com//api/auth/admin/restaurants', {
+        .post('https://infinite-beyond-20743.herokuapp.com/api/auth/admin/restaurants', {
           name: this.restaurant_name,
           prefecture_id: this.prefecture_id,
           genre_id: this.genre_id,

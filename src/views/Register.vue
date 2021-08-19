@@ -42,7 +42,7 @@ export default {
   methods:{
     register(){
       axios
-      .post('https://limitless-earth-70755.herokuapp.com/api/register',{
+      .post('https://infinite-beyond-20743.herokuapp.com/api/register',{
         name:this.name,
         email:this.email,
         password:this.password,
