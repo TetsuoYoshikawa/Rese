@@ -28,7 +28,7 @@
                   <p>DATETIME: {{reserve.datetime}}</p>
                 </div>
                 <div class="reserve-number">
-                  <p>NUMBER:{{reserve.number_reservation}}</p>
+                  <p>NUMBER:{{reserve.number_reservation}}!!</p>
                 </div>
               </div>
             </div>
@@ -88,7 +88,9 @@ export default {
   methods: {
     async getFavorite(){
       await axios
-        .get('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites')
+        .get('http://127.0.0.1:8000/api/auth/favorites/' + 
+          this.name
+        )
         .then((response) => {
           this.favorites = response.data.data;
           if(this.favorites == 0){
@@ -103,7 +105,9 @@ export default {
     },
     async getReservation(){
       await axios 
-      .get('https://infinite-beyond-20743.herokuapp.com/api/auth/reservations')
+      .get('https://infinite-beyond-20743.herokuapp.com/api/auth/reservations/'  + 
+          this.name
+        )
       .then((response) => {
         this.reserves = response.data.data;
       if(this.reserves == 0){
@@ -117,7 +121,7 @@ export default {
     },
     favoriteDelete(restaurant){
       axios
-      .delete('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
+      .delete('http://127.0.0.1:8000/api/auth/favorites',{
         data:{
           user_id:restaurant.user_id,
           restaurant_id:restaurant.restaurant_id

@@ -42,6 +42,7 @@
                 params:{id:restaurant.id}})"
                 style="color:white">詳しく見る
                 </button>
+                <Favorite />
                 <div>
                   <v-icon name="heart" scale="2" class="heart" @click="favoritePost(restaurant)"
                   v-if="restaurant.favorites.length === 0">
@@ -61,10 +62,12 @@
 import 'vue-awesome/icons';
 import Icon from 'vue-awesome/components/Icon';
 import axios from "axios";
+import Favorite from '../components/Favorite.vue';
 export default{
   props:['id'],
   data(){
     return{
+      name:this.$store.state.user_id,
       active :false,
       restaurants: [],
       prefectures:[],
@@ -105,9 +108,16 @@ export default{
     },
     async getFavorite(){
       await axios
-        .get('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites')
+        .get('http://127.0.0.1:8000/api/auth/favorites/' + 
+          this.name
+        )
         .then((response) => {
           this.favorites = response.data.data;
+          if(this.favorites == 0){
+            this.notFavorite = true;
+          }else{
+            this.notFavorite = false;
+          }
         })
         .catch((error) => {
           console.log(error)
@@ -115,7 +125,7 @@ export default{
     },
     favoritePost(restaurant){
       axios
-      .post('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
+      .post('http://127.0.0.1:8000/api/auth/favorites',{
         user_id:this.$store.state.user_id,
         restaurant_id:restaurant.id,
       })
@@ -130,7 +140,7 @@ export default{
     },
     favoriteDelete(restaurant){
       axios
-      .delete('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
+      .delete('http://127.0.0.1:8000/api/auth/favorites',{
         data:{
           user_id:this.$store.state.user_id,
           restaurant_id:restaurant.id
@@ -158,6 +168,7 @@ export default{
   },
   components:{
     'v-icon':Icon,
+    Favorite,
   },
   created(){
     this.getRestaurant();
