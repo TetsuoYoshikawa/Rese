@@ -11,7 +11,12 @@
               店舗一覧
               </a>
             </li>
-            <li class="moble-ul ber">
+            <li class="moble-ul ber" v-if="$store.state.administrator === false">
+              <a @click="$router.push({path: '/admin'}, () => {})">
+              管理者ページ
+              </a>
+            </li>
+            <li class="moble-ul ber" v-else>
               <a @click="$router.push({path: '/mypage'}, () => {})">
               マイページ
               </a>

@@ -45,7 +45,7 @@
                 <Favorite />
                 <div>
                   <v-icon name="heart" scale="2" class="heart" @click="favoritePost(restaurant)"
-                  v-if="restaurant.favorites.length === 0">
+                  v-if="restaurant.favorites.length !== name">
                   </v-icon>
                   <img class="heart" src="../assets/heart_red.png" @click="favoriteDelete(restaurant)" style="height:30px;width:30px;"
                   v-else />
@@ -108,7 +108,7 @@ export default{
     },
     async getFavorite(){
       await axios
-        .get('http://127.0.0.1:8000/api/auth/favorites/' + 
+        .get('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites/' + 
           this.name
         )
         .then((response) => {
@@ -123,9 +123,9 @@ export default{
           console.log(error)
         });
     },
-    favoritePost(restaurant){
-      axios
-      .post('http://127.0.0.1:8000/api/auth/favorites',{
+    async favoritePost(restaurant){
+      await axios
+      .post('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
         user_id:this.$store.state.user_id,
         restaurant_id:restaurant.id,
       })
@@ -138,9 +138,9 @@ export default{
         alert('ログインしてください');
       })
     },
-    favoriteDelete(restaurant){
-      axios
-      .delete('http://127.0.0.1:8000/api/auth/favorites',{
+    async favoriteDelete(restaurant){
+      await axios
+      .delete('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
         data:{
           user_id:this.$store.state.user_id,
           restaurant_id:restaurant.id
