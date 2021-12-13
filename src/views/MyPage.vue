@@ -88,9 +88,7 @@ export default {
   methods: {
     async getFavorite(){
       await axios
-        .get('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites/' + 
-          this.name
-        )
+        .get('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites/' + this.name)
         .then((response) => {
           this.favorites = response.data.data;
           if(this.favorites == 0){
@@ -290,5 +288,18 @@ vue-star .fa {
 }
 .fa{
   padding-left:80px;
+}
+
+@media screen and (max-width:768px) {
+  .mypage{
+    display: block;
+  }
+  .reserve{
+    width:80%;
+  }
+  .favorite{
+    width: 80%;
+    margin: 0 auto;
+  }
 }
 </style>

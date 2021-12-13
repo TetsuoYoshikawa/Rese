@@ -1,3 +1,4 @@
+  
 <template>
   <div>
     <div class="header">
@@ -13,11 +14,6 @@
           <option v-for="genre in genres" :key="genre.name">{{genre.name}}</option>
         </select>
         <input type="text" placeholder="Restaurant Name" v-model="searchData_restaurant">
-      </div>
-      <div class="menu" id="menu" @click="hamburger()" :class="{open:active}" >
-        <span class="menu__line--top"></span>
-        <span class="menu__line--middle"></span>
-        <span class="menu__line--bottom"></span>
       </div>
       <div class="mypage">
         <button type="submit" @click="$router.push({path: '/mypage'}, () => {})">マイページ</button>
@@ -38,14 +34,12 @@
               <button @click="
                 $router.push({
                 path:'/detail/' + restaurant.id,
-                name:'Detail',
                 params:{id:restaurant.id}})"
                 style="color:white">詳しく見る
                 </button>
-                <Favorite />
                 <div>
                   <v-icon name="heart" scale="2" class="heart" @click="favoritePost(restaurant)"
-                  v-if="restaurant.favorites.length !== name">
+                  v-if="restaurant.favorites.length === 0">
                   </v-icon>
                   <img class="heart" src="../assets/heart_red.png" @click="favoriteDelete(restaurant)" style="height:30px;width:30px;"
                   v-else />
@@ -62,7 +56,6 @@
 import 'vue-awesome/icons';
 import Icon from 'vue-awesome/components/Icon';
 import axios from "axios";
-import Favorite from '../components/Favorite.vue';
 export default{
   props:['id'],
   data(){
@@ -98,26 +91,29 @@ export default{
       this.active = !this.active
     },
     async getRestaurant(){
-      await axios
-        .get("https://infinite-beyond-20743.herokuapp.com/api/restaurants")
-        .then((response => {
-          this.restaurants = response.data.data.restaurant;
-        }))
-        .catch(error => {
+      if(this.$store.state.auth === true){
+        await axios
+          .get("https://infinite-beyond-20743.herokuapp.com/api/restaurants/user/" + this.name)
+          .then((response => {
+            this.restaurants = response.data.data.restaurant;
+          }))
+          .catch(error => {
           console.log(error)});
+      }else{
+        await axios
+          .get("https://infinite-beyond-20743.herokuapp.com/api/restaurants")
+          .then((response => {
+            this.restaurants = response.data.data.restaurant;
+          }))
+          .catch(error => {
+          console.log(error)});
+      }
     },
     async getFavorite(){
       await axios
-        .get('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites/' + 
-          this.name
-        )
+        .get('https://infinite-beyond-20743.herokuapp.com/api/favorites')
         .then((response) => {
           this.favorites = response.data.data;
-          if(this.favorites == 0){
-            this.notFavorite = true;
-          }else{
-            this.notFavorite = false;
-          }
         })
         .catch((error) => {
           console.log(error)
@@ -168,7 +164,6 @@ export default{
   },
   components:{
     'v-icon':Icon,
-    Favorite,
   },
   created(){
     this.getRestaurant();
@@ -271,17 +266,6 @@ input{
   padding-left:70px;
   color:#F05654;
 }
-.moble-ul {
-  list-style-type: none;
-  border-left: 1px solid black;
-  margin-left: 45px;
-}
-.mobile-show {
-  list-style-type: none;
-  margin-right: 6px;
-  border-left: 1px solid black;
-  margin-left: 30px;
-}
 .left {
   border-left: 0;
   padding-left: 0;
@@ -333,13 +317,7 @@ button{
   .nav {
     position: absolute;
     height: 100vh;
-    width: 50%;
-    right: -50%;
-    background: #ff7300;
     transition: 0.7s;
-  }
-  .nav ul {
-    padding-top: 80px;
   }
   .nav ul li {
     list-style-type: none;
@@ -353,59 +331,9 @@ button{
     background: #ff7300;
     display: inline;
   }
-  .moble-ul {
-    list-style-type: none;
-    border-left: 0px solid black;
-    margin-left: -200px;
-  }
-  .mobile-show {
-    list-style-type: none;
-    margin-right: 0px;
-    border-left: 0px solid black;
-    margin-left: 0px;
-  }
-  .menu {
-    display: block;
-    width: 36px;
-    height: 32px;
-    cursor: pointer;
-    position: relative;
-    left: 20px;
-    margin-left: 85%;
-  }
-  .menu__line--top,
-  .menu__line--middle,
-  .menu__line--bottom {
-    display: inline-block;
-    width: 100%;
-    right: 0%;
-    height: 4px;
-    background-color: #000;
-    position: absolute;
-    transition: 0.5s;
-  }
-  .menu__line--top {
-    top: 0;
-  }
-  .menu__line--middle {
-    top: 14px;
-  }
-  .menu__line--bottom {
-    bottom: 0;
-  }
-  .menu.open span:nth-of-type(1) {
-    top: 14px;
-    transform: rotate(45deg);
-  }
-  .menu.open span:nth-of-type(2) {
-    opacity: 0;
-  }
-  .menu.open span:nth-of-type(3) {
-    top: 14px;
-    transform: rotate(-45deg);
-  }
-  .in {
-    transform: translateX(-100%);
-  }
+  .mypage{
+  margin-left: 45%;
+  border-radius: 10px;
+}
 }
 </style>

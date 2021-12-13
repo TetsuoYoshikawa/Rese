@@ -28,7 +28,7 @@
               <form>
                 <ul class="col-3 mx-auto" style="width: 300px;">
                   <li class="date" >
-                    <input type="date" v-model="date" placeholder="日付を選択してください">
+                    <input type="date" v-model="date" placeholder="日付を選択してください" style="width:300px">
                   </li>
                 </ul>
                 <ul>
@@ -44,6 +44,8 @@
                     :minute-range="[0,10,20,30,40,50]" hide-disabled-hours 
                     hide-disabled-minutes 
                     close-on-complete
+                    input-width="100%"
+                    minute-interval="15"
                     style="width:300px">
                     </vuejs-timepicker>
                   </li>
@@ -267,6 +269,10 @@ button.btn-border-shadow--color2:before {
   border-radius: 100vh;
   -webkit-box-shadow: 3px 3px 0 #78e5e5;
   box-shadow: 3px 3px 0 #78e5e5;
+}
+
+.card ul {
+  list-style-type: none;
 }
 
 @media  screen and (max-width:1000px) {

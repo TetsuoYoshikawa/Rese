@@ -53,7 +53,7 @@ export default {
   methods: {
     async getReservation(){
       await axios 
-      .get('https://infinite-beyond-20743.herokuapp.com/api/auth/reservations')
+      .get('https://infinite-beyond-20743.herokuapp.com/api/auth/admin/reservation')
       .then((response) => {
         this.reserves = response.data.data;
       if(this.reserves == 0){

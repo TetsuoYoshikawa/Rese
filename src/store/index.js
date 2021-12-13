@@ -14,7 +14,7 @@ export default new Vuex.Store({
     user_name:"",
     email:"",
     token:"",
-    administrator:"",
+    administrator: false,
   },
   mutations: {
     auth(state, payload) {
@@ -42,10 +42,9 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       const responseLogin = await axios
-        .post("https://infinite-beyond-20743.herokuapp.com/api/login", {
+        .post("http://127.0.0.1:8000/api/login", {
           email: email,
           password: password,
-          
         })
         .catch(() => {
           alert('ログインできませんでした');
@@ -55,7 +54,7 @@ export default new Vuex.Store({
       commit("user_id", responseLogin.data.user.id);
       commit("user_name", responseLogin.data.user.name);
       commit("email", responseLogin.data.user.email);
-      commit("administrator", responseLogin.data.administrator);
+      commit("administrator", responseLogin.data.user.administrator);
       router.replace("/");
     },
     async logout({ commit }) {

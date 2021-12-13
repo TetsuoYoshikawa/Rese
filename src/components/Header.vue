@@ -11,7 +11,7 @@
               店舗一覧
               </a>
             </li>
-            <li class="moble-ul ber" v-if="$store.state.administrator === false">
+            <li class="moble-ul ber" v-if="$store.state.administrator === 1">
               <a @click="$router.push({path: '/admin'}, () => {})">
               管理者ページ
               </a>
@@ -71,7 +71,7 @@ export default{
       $router.replace("/");
     },
     hamburger() {
-      this.active = !this.active
+      this.active =!this.active
     },
   }
 };
