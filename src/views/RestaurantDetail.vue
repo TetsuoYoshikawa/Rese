@@ -28,7 +28,19 @@
               <form>
                 <ul class="col-3 mx-auto" style="width: 300px;">
                   <li class="date" >
-                    <input type="date" v-model="date" placeholder="日付を選択してください" style="width:300px">
+                    <datetime
+                      label="日付を選択してください"
+                      format="YYYY-MM-DD"
+                      formatted="MM月DD日"
+                      only-date
+                      v-model="date"
+                      :no-header="true"
+                      :min-date="startDate"
+                      :max-date="endDate"
+                      color="#ffa500"
+                      button-color="#ffa500"
+                      class="date"
+                    ></datetime>
                   </li>
                 </ul>
                 <ul>
@@ -36,16 +48,16 @@
                     <vuejs-timepicker
                     v-model="time"
                     placeholder="時間を入力してください"
-                    format="hh:mm" 
+                    format="H:mm" 
+                    hour-label="時"
+                    minute-label="分"
                     id="timepicker" 
                     name="time" 
                     input-class="form-control" 
-                    :hour-range="[10,11,12,13,14,15,16,17,18,19,20,21,22]"
-                    :minute-range="[0,10,20,30,40,50]" hide-disabled-hours 
-                    hide-disabled-minutes 
-                    close-on-complete
                     input-width="100%"
+                    :hour-range="[[10, 23]]"
                     minute-interval="15"
+                    hide-disabled-hours
                     style="width:300px">
                     </vuejs-timepicker>
                   </li>
@@ -71,10 +83,13 @@
 <script>
 import axios from "axios";
 import VueTimepicker from 'vue2-timepicker';
+import datetime from "vue-ctk-date-time-picker";
+import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import 'vue2-timepicker/dist/VueTimepicker.css';
 import 'vue2-datepicker/index';
 import {ja} from 'vuejs-datepicker/dist/locale';
 import Header from '../components/Header.vue';
+import moment from "moment";
 export default {
   props:["id"],
   data () {
@@ -85,7 +100,25 @@ export default {
       DatePickerFormat: 'yyyy-MM-dd',
       ja:ja,
       restaurants:"",
+      disabledDates: {
+        to: new Date(2021, 4, 11),
+    },
+    selectFerryDay: new Date(2020, 4, 12),
     };
+  },
+  // カレンダー日付設定
+  computed: {
+    startDate() {
+      // 明日からの日付を指定
+      const start = moment().add(1, "days");
+      return start.format("YYYY-MM-DD");
+    },
+    endDate() {
+      // 3ヶ月後までを指定
+      const start = moment(this.start);
+      const end = start.add(3, "months").endOf("day");
+      return end.format("YYYY-MM-DD");
+    },
   },
   methods:{
     async getRestaurantDetail() {
@@ -113,7 +146,6 @@ export default {
           alert('予約できません。もう一度、お試しください');
         });
     },
-    
   },
   created(){
     this.getRestaurantDetail(),
@@ -121,7 +153,9 @@ export default {
   },
   components: {
     Header,
+    datetime,
     'vuejs-timepicker': VueTimepicker,
+    //'vuejs-datepicker':vueDatepicker
   },
 }
 </script>

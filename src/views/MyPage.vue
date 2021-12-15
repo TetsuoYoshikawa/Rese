@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header />
+    <ReservationUpdate v-if="modal" @close="closeModal" :reserve="reserves" class="reserveUpdate"/>
     <div class="mypage">
       <div  key="left" class="reserve">
         <h2 v-if="notReserve" >予約店舗はございません</h2>
@@ -10,7 +11,6 @@
             <div class="reserve-top flex">
               <img src="../assets/time.png" style="height:30px;width:30px;margin:0 20px;padding: 10px 0">
               <p class="reserve-title">予約 No.{{reserve.id}}</p>
-              <img src="../assets/cross.png" @click="deleteReservation(reserve)" style="height:30px;width:30px;margin-left: auto;margin-right:20px;padding: 10px 0;">
             </div>
             <div class="flex">
               <img :src=reserve.restaurant.image_url style="width:40%;height:300px;padding: 10px 0;">
@@ -30,6 +30,13 @@
                 <div class="reserve-number">
                   <p>NUMBER:{{reserve.number_reservation}}</p>
                 </div>
+                <button
+                  class="button"
+                  id="booking_update_button"
+                  @click="openModal(reserve)"
+                  >予約変更
+                </button>
+                <button class="button" src="../assets/cross.png" @click="deleteReservation(reserve)">予約取り消し</button>
               </div>
             </div>
           </div>
@@ -72,6 +79,7 @@
 
 <script>
 import axios from "axios";
+import ReservationUpdate from "../components/ReservationUpdate.vue";
 import Header from '../components/Header.vue';
 export default {
   data() {
@@ -79,6 +87,7 @@ export default {
       name:this.$store.state.user_id,
       right: true,
       left: false,
+      modal: false,
       notFavorite:true,
       notReserve:true,
       reserves:[],
@@ -140,7 +149,11 @@ export default {
       })
       .then((response) => {
         console.log(response);
-        alert('予約を取り消しました')
+        alert('予約を取り消しました');
+        this.$router.go({
+          path: this.$router.currentRoute.path,
+          force: true,
+        });
       })
     },
     watchLeft() {
@@ -151,7 +164,14 @@ export default {
       this.left = false;
       this.right = true;
     },
-    
+    openModal(reserve) {
+      this.modal = true;
+      this.postItem = reserve;
+    },
+    closeModal() {
+      this.modal = false;
+      this.getMyBooking();
+    },
   },
   created(){
     this.getFavorite();
@@ -159,6 +179,7 @@ export default {
   },
   components:{
     Header,
+    ReservationUpdate,
   },
 };
 </script>
@@ -187,6 +208,7 @@ img{
   padding-top:20px;
   margin: 0 auto;
 }
+
 .reserve h2{
   text-align: center;
   padding-bottom:20px;

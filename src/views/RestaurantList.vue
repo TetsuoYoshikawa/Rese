@@ -1,4 +1,3 @@
-  
 <template>
   <div>
     <div class="header">
@@ -292,6 +291,15 @@ button{
   background-color:#ff7300;
   border:none;
   border-radius: 10px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 5px 5px rgb(37, 49, 55);
+}
+button:active{
+  box-shadow: none;
+  position: relative;
+  top: 5px;
 }
 @media screen and (max-width:1023px){
   .item{

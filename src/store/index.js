@@ -42,7 +42,7 @@ export default new Vuex.Store({
   actions: {
     async login({ commit }, { email, password }) {
       const responseLogin = await axios
-        .post("http://127.0.0.1:8000/api/login", {
+        .post("https://infinite-beyond-20743.herokuapp.com/api/login", {
           email: email,
           password: password,
         })
