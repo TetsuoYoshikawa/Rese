@@ -60,7 +60,6 @@
                   <button @click="
                   $router.push({
                   path:'/detail/' + restaurant.id,
-                  name:'Detail',
                   params:{id:restaurant.id}})">詳しく見る</button>
                   <img class="heart" src="../assets/heart_red.png"
                   @click="favoriteDelete(restaurant)"
