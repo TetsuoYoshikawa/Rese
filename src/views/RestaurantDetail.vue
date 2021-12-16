@@ -18,6 +18,11 @@
               </p>
             </div>
           </div>
+          <button @click="$router.push({
+            path:'/review/' + restaurant.id,
+            params:{id:restaurant.id}})"
+            style="color:white">レビューを見る/書く
+          </button>
         </div>
       </div>
       <div class="item">
@@ -100,6 +105,8 @@ export default {
       DatePickerFormat: 'yyyy-MM-dd',
       ja:ja,
       restaurants:"",
+      reviews:"",
+      reviewCard:false,
       disabledDates: {
         to: new Date(2021, 4, 11),
     },
@@ -128,6 +135,13 @@ export default {
           this.restaurants = response.data.data;
         });
     },
+    async getReview() {
+      await axios
+        .get("https://infinite-beyond-20743.herokuapp.com/api/auth/reviews/" + this.$route.params.id)
+        .then((response) => {
+          this.reviews = response.data.data;
+        });
+    },
     postReservation(){
       axios
         .post("https://infinite-beyond-20743.herokuapp.com/api/auth/reservations",{
@@ -146,9 +160,13 @@ export default {
           alert('予約できません。もう一度、お試しください');
         });
     },
+    reviewOpen() {
+      this.reviewCard = true;
+    },
   },
   created(){
     this.getRestaurantDetail(),
+    this.getReview(),
     this.getReservation()
   },
   components: {
@@ -205,6 +223,12 @@ h2{
   padding-left:20px;
 }
 /*/////////////
+    レビュー
+//////////// */
+.content{
+  margin:20px 0;
+}
+/*/////////////
     予約内容
 //////////// */
 .reservation-detail{
@@ -246,6 +270,23 @@ select {
 /*//////////////////////
 //   ボタンオプション   //
 //////////////////////*/
+button{
+  padding:10px 40px;
+  margin-top:20px;
+  margin-left: 40px;
+  background-color:#ff7300;
+  border:none;
+  border-radius: 10px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 5px 5px rgb(37, 49, 55);
+}
+button:active{
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
 .button{
   margin-top:20px;
   width:100%;

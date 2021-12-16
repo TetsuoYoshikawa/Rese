@@ -7,6 +7,7 @@ import RestaurantDetail from '../views/RestaurantDetail.vue';
 import Done from '../views/Done.vue';
 import Thanks from '../views/Thanks.vue';
 import RestaurantList from '../views/RestaurantList.vue';
+import Review from '../views/Review.vue';
 import Admin from '../views/Admin.vue';
 import RestaurantListAdmin from '../views/RestaurantlistAdmin.vue';
 import AdminCheck from '../views/AdminCheck.vue';
@@ -47,6 +48,12 @@ const routes = [
     meta:{
       userAuth:true,
     }
+  },
+  {
+    path:'/review/:id',
+    name:'Review',
+    component:Review,
+    props: true,
   },
   {
     path:'/done',
