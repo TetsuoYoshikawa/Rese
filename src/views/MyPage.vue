@@ -10,10 +10,10 @@
           <div class="reserve-info" v-for="(reserve,index) in reserves" :key="index">
             <div class="reserve-top flex">
               <img src="../assets/time.png" style="height:30px;width:30px;margin:0 20px;padding: 10px 0">
-              <p class="reserve-title">予約 No.{{reserve.id}}</p>
+              <p class="reserve-title">予約</p>
             </div>
             <div class="flex">
-              <img :src=reserve.restaurant.image_url style="width:40%;height:300px;padding: 10px 0;">
+              <img :src=reserve.restaurant.image_url style="width:40%;height:300px;padding: 20px 0;">
               <div class="reserve-list">
                 <div class="reserve-name">
                   <p>NAME: {{reserve.restaurant.name}}</p>
@@ -216,7 +216,7 @@ img{
 .reserve-info {
   background-color: orange;
   border-radius: 5px;
-  height: 400px;
+  height: 480px;
   margin-bottom: 20px;
 }
 .reserve-top {
@@ -234,8 +234,9 @@ img{
 .reserve-list{
   width:50%;
   padding-left:20px;
+  padding-bottom: 20px;
   background-color: white;
-  margin:0 auto;
+  margin:20px auto;
   border-radius: 10px;
 }
 .reserve-list p{
@@ -294,12 +295,19 @@ img {
 /*/////////////////
      ボタン詳細
 /////////////////*/
+.button{
+  margin-top: 30px;
+}
 button{
   padding:10px 20px;
-  margin-left: 20px;
+  margin-right: 20px;
   background-color:#ff7300;
   border:none;
   border-radius: 10px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 5px 5px rgb(37, 49, 55);
 }
 vue-star {
 position: relative;

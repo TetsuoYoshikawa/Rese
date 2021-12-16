@@ -1,6 +1,6 @@
 <template>
   <div class="items overlay" @click.self="$emit('close')"> 
-    <div class="reservation-detail">
+    <div class="reservation-detail modal_window">
       <h2 class="title">予約の変更</h2>
       <div class="reservation" >
         <div class="card" v-for="reserve in reserve" :key="reserve.id">
@@ -9,7 +9,7 @@
             style="width:40%;height:300px;padding: 10px 0;"/>
             <form>
               <p class="name">{{reserve.restaurant.name}}</p>
-              <ul class="col-3 mx-auto" style="width: 300px;">
+              <ul class="col-3 mx-auto">
                 <li class="date" >
                 <datetime
                   label="日付を選択してください"
@@ -22,12 +22,12 @@
                   :max-date="endDate"
                   color="#ffa500"
                   button-color="#ffa500"
-                  class="date"
+                  class="date table"
                 ></datetime>
                 </li>
               </ul>
               <ul>
-                <li class="time" style="width: 300px;">
+                <li class="time" >
                 <vuejs-timepicker
                 v-model="reserve.time"
                 placeholder="時間を入力してください"
@@ -36,12 +36,12 @@
                 minute-label="分"
                 id="timepicker" 
                 name="time" 
+                class="time table"
                 input-class="form-control" 
                 input-width="100%"
                 :hour-range="[[10, 23]]"
                 minute-interval="15"
-                hide-disabled-hours
-                style="width:300px">
+                hide-disabled-hours>
                 </vuejs-timepicker>
                 </li>
               </ul>
@@ -97,15 +97,15 @@ export default {
   },
   methods: {
     // 予約更新
-    putReservation(){
+    putReservation(reserve){
       axios
         .put("https://infinite-beyond-20743.herokuapp.com/api/auth/reservations",{
-          id:35,
+          id:reserve.id,
           user_id:this.$store.state.user_id,
-          restaurant_id:this.id,
-          date:this.date,
-          time:this.time,
-          number_reservation:this.number,
+          restaurant_id:reserve.restaurant.id,
+          date:reserve.date,
+          time:reserve.time,
+          number_reservation:reserve.number_reservation,
         })
         .then((response) => {
         console.log(response);
@@ -185,7 +185,10 @@ h2{
   display: flex;
   align-items: center;
   justify-content: center;
-  }
+}
+form{
+  width:40%;
+}
 /*/////////////
     予約内容
 //////////// */
@@ -222,7 +225,7 @@ ul{
 }
 select {
   display: inline-block;
-  width: 300px;
+  width: 100%;
   height:30px;
   margin-bottom:30px;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Headers />
     <div class="restaurant-list">
       <div class="item">
         <div class="restaurant-card flex"  v-for="restaurant in restaurants" :key="restaurant.id">
@@ -88,7 +88,7 @@ import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import 'vue2-timepicker/dist/VueTimepicker.css';
 import 'vue2-datepicker/index';
 import {ja} from 'vuejs-datepicker/dist/locale';
-import Header from '../components/Header.vue';
+import Headers from '../components/Headers.vue';
 import moment from "moment";
 export default {
   props:["id"],
@@ -152,7 +152,7 @@ export default {
     this.getReservation()
   },
   components: {
-    Header,
+    Headers,
     datetime,
     'vuejs-timepicker': VueTimepicker,
     //'vuejs-datepicker':vueDatepicker

@@ -127,6 +127,10 @@ export default{
       .then((response) => {
         console.log(response);
         alert('いいねしました');
+        this.$router.go({
+          path: this.$router.currentRoute.path,
+          force: true,
+        });
       })
       .catch((response) =>{
         console.log(response);
@@ -143,7 +147,11 @@ export default{
       })
       .then((response) => {
         console.log(response);
-        alert('いいねを削除しました')
+        alert('いいねを削除しました');
+        this.$router.go({
+          path: this.$router.currentRoute.path,
+          force: true
+        });
       })
     },
     async getPrefecture(){
@@ -342,6 +350,18 @@ button:active{
   .mypage{
   margin-left: 45%;
   border-radius: 10px;
-}
+  }
+  @media screen and (max-width:480px){
+  .mypage{
+    margin-left: 30%;
+    border-radius: 10px;
+    }
+  }
+    @media screen and (max-width:350px){
+  .mypage{
+    margin-left: 10%;
+    border-radius: 10px;
+    }
+  }
 }
 </style>
