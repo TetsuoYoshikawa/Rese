@@ -253,6 +253,7 @@ select{
   padding:15px;
   border:none;
   font-size: 16px;
+  background-color:white;
 }
 input{
   padding:17px;
@@ -306,13 +307,13 @@ input{
   padding-bottom: 15px;
 }
 .tag-2{
-  padding-left:10px;
   font-size:20px;
+  padding-left: 5px;
   padding-bottom: 15px;
   margin-top: 5px;
 }
 .heart{
-  padding-left:300%;
+  padding-left:250%;
   color:#F05654;
 }
 .left {

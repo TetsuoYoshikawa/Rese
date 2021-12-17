@@ -123,4 +123,9 @@ button:active{
 a{
   color:blue;
 }
+@media screen and (max-width:320px){
+  .card{
+    width:300px;
+  }
+}
 </style>
