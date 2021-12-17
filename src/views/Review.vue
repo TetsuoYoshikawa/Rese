@@ -1,6 +1,7 @@
 <template>
   <div>
     <Headers />
+    <ReviewUpdate v-if="modal" @close="closeModal"  class="reserveUpdate" :postItem="postItem"/>
     <div class="review">
       <div class="item">
         <div class="restaurant-card flex"  v-for="restaurant in restaurants" :key="restaurant.id">
@@ -30,6 +31,7 @@
                 <th>ユーザー</th>
                 <th>コメント</th>
                 <th>評価</th>
+                <th>備考</th>
               </tr>
               <tr v-for="review in reviews" :key="review.id">
                 <td>{{review.user.name}}</td>
@@ -49,6 +51,12 @@
                 <td v-else-if="review.num_of_stars === 1">
                   <div>★☆☆☆☆</div>
                 </td>
+                <td>
+                  <div v-if="review.user_id === $store.state.user_id">
+                    <button @click="openModal(review.id)">変更</button>
+                    <button @click="deleteReview(review)">削除</button>
+                  </div>
+                </td>
               </tr>
             </table>
           </div>
@@ -61,15 +69,17 @@
 <script>
 import axios from "axios";
 import Headers from '../components/Headers.vue';
+import ReviewUpdate  from '../components/ReviewUpdate.vue'
 export default {
   props:["id"],
   data () {
     return {
       reviews:"",
       restaurants:"",
-      reviewCard:false,
       review_content:"",
-      num_of_stars:""
+      num_of_stars:"",
+      modal: false,
+      postItem:""
     };
   },
   methods:{
@@ -104,8 +114,29 @@ export default {
           alert('予約できません。もう一度、お試しください');
         });
     },
-    reviewOpen() {
-      this.reviewCard = true;
+    deleteReview(review){
+      axios
+      .delete('https://infinite-beyond-20743.herokuapp.com/api/auth/reviews',{
+        data:{
+          id:review.id,
+          user_id:this.$store.state.user_id,
+        }
+      })
+      .then((response) => {
+        console.log(response);
+        alert('レビューを取り消しました');
+        this.$router.go({
+          path: this.$router.currentRoute.path,
+          force: true,
+        });
+      })
+    },
+    openModal(review) {
+      this.modal = true;
+      this.postItem = review;
+    },
+    closeModal() {
+      this.modal = false;
     },
   },
   created(){
@@ -114,6 +145,7 @@ export default {
   },
   components: {
     Headers,
+    ReviewUpdate
   },
 }
 </script>
