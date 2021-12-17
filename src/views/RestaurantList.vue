@@ -3,7 +3,7 @@
     <div class="header">
       <img class="header-img" src="../assets/store.png" />
       <h2 class="header-title" @click="$router.push({path: '/'}, () => {})">RESE</h2>
-      <div class="right  nav" id="nav" :class="{in:active}">
+      <div class="right  nav" id="nav">
         <select v-model="searchData_prefecture">
           <option value="">All Prefecutes</option>
           <option v-for="prefecture in prefectures" :key="prefecture.name">{{prefecture.name}}</option>
@@ -12,11 +12,40 @@
           <option value="">All Genre</option>
           <option v-for="genre in genres" :key="genre.name">{{genre.name}}</option>
         </select>
-        <input type="text" placeholder="Restaurant Name" v-model="searchData_restaurant">
+        <input type="text" placeholder="Restaurant Name"  v-model="searchData_restaurant">
       </div>
       <div class="mypage ">
         <button type="submit" @click="$router.push({path: '/mypage'}, () => {})">マイページ</button>
       </div>
+      <!-- ハンバーガーメニュー -->
+      <div class="hamburger" @click="hamburger()" :class="{ active: menu }">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <nav  class="menu_content" :class="{ open: menu }">
+        <ul class="hamburger_memu">
+          <li>
+            <select v-model="searchData_prefecture">
+              <option value="">All Prefecutes</option>
+              <option v-for="prefecture in prefectures" :key="prefecture.name">{{prefecture.name}}</option>
+            </select>
+          </li>
+          <li>
+            <select v-model="searchData_genre">
+              <option value="">All Genre</option>
+              <option v-for="genre in genres" :key="genre.name">{{genre.name}}</option>
+            </select>
+          </li>
+          <li>
+            <input type="text" placeholder="Restaurant Name"  v-model="searchData_restaurant">
+          </li>
+          <li class="mypage-2">
+            <a @click="$router.push({path: '/mypage'}, () => {})">マイページ</a>
+          </li>
+        </ul>
+      </nav>
     </div>
     <div class="restaurant-list contents">
       <div class="item">
@@ -62,7 +91,7 @@ export default{
   data(){
     return{
       name:this.$store.state.user_id,
-      active :false,
+      menu :false,
       restaurants: [],
       prefectures:[],
       genres:[],
@@ -89,7 +118,7 @@ export default{
   },
   methods:{
     hamburger() {
-      this.active = !this.active
+      this.menu = !this.menu;
     },
     async getRestaurant(){
       if(this.$store.state.auth === true){
@@ -194,14 +223,15 @@ export default{
 ////////////////*/
 .header{
   display:flex;
-  height:70px;
+  height:60px;
   align-items: center;
   background-color:#ff7300;
+  justify-content: space-between;
 }
 .header-img{
   width:30px;
   height: 30px;
-  margin:0 20px;
+  margin:0 15px;
 }
 .header-title{
   color:white;
@@ -242,6 +272,9 @@ input{
   border-radius: 30px;
   background-color:white;
 }
+ .menu_content {
+    display: none;
+  }
 /*////////////////
     店舗情報
 ////////////////*/
@@ -302,9 +335,6 @@ input{
 .flex-2{
   display: flex;
 }
-.hamburger {
-  display: none;
-}
 button{
   padding:10px 5px;
   margin-left: 20px;
@@ -322,14 +352,93 @@ button:active{
   top: 5px;
 }
 
-@media screen and (max-width:966px){
-  .restaurant-card{
-    width:240px;
+@media screen and (max-width:768px){
+  .nav{
+    display: none;
   }
-  .item{
-    width:100%;
+  .mypage{
+    display: none;
+  }
+  .text-area{
+    display: none;
+  }
+  .hamburger {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 100;
+    transition: 0.5s;
+    margin-right: 15px;
+  }
+  .hamburger span {
+    margin-top: 7px;
+    display: inline-block;
+    position: absolute;
+    width: 35px;
+    height: 3px;
+    background-color: #fff;
+    transition: 0.3s;
+  }
+  .hamburger span:nth-of-type(1) {
+    top: 10px;
+  }
+  .hamburger span:nth-of-type(2) {
+    top: 20px;
+  }
+  .hamburger span:nth-of-type(3) {
+    top: 30px;
+  }
+  .hamburger.active span:nth-of-type(1) {
+    top: 20px;
+    transform: rotate(45deg);
+  }
+  .hamburger.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-of-type(3) {
+    top: 20px;
+    transform: rotate(-45deg);
+  }
+  .menu_content {
+    display: block;
+    width: 50%;
+    text-align: center;
+    position: fixed;
+    transition: 0.3s;
+    top: 60px;
+    right: calc(-100% - 80px);
+    background: rgb(255, 255, 255);
+    color: #333333;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+  .menu_content li {
+    color: #333333;
+    margin: 15px;
+    border-bottom: 0.5px solid #ffa500;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+  }
+  .menu_content.open {
+    right: 0;
+  }
+  .menu_content li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #333333;
+    display: block;
+  }
+  .hamburger_icon {
+    margin-right: 3px;
+  }
+  .mypage-2{
+    padding: 20px;
   }
 }
+
 @media screen and (max-width:320px){
   .restaurant-card{
     height:450px;
@@ -338,12 +447,6 @@ button:active{
   }
   select{
     padding:5px;
-  }
-  .mypage{
-    display: none;
-  }
-  .heart{
-    padding-left: 200%;
   }
 }
 </style>

@@ -75,7 +75,7 @@
           </li>
         </ul>
         <ul v-else class="hamburger_memu">
-            <li>
+            <li >
               <a @click="$router.push({path: '/'}, () => {})">
               店舗一覧
               </a>
@@ -121,21 +121,22 @@ export default{
 /* ====================
       ヘッダー
 ==================== */
-  .header {
-    height: 60px;
-    line-height: 60px;
-    justify-content: space-between;
-    top: 0;
-    width: 100%;
-    background-color: #ff7300;
-    display: flex;
-  }
-  img{
-    height:30px;
-    width:30px;
-    margin:15px;
-  }
-  .text-area {
+.header {
+  height: 60px;
+  line-height: 60px;
+  justify-content: space-between;
+  top: 0;
+  width: 100%;
+  background-color: #ff7300;
+  display: flex;
+}
+img{
+  height:30px;
+  width:30px;
+  margin:0 15px;
+  margin-top: 15px;
+}
+.text-area {
   display: flex;
   align-items: center;
   justify-content: space-between;

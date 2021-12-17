@@ -4,8 +4,8 @@
     <ReservationUpdate v-if="modal" @close="closeModal" :reserve="reserves" class="reserveUpdate"/>
     <div class="mypage">
       <div  key="left" class="reserve">
-        <h2 v-if="notReserve" >予約店舗はございません</h2>
-        <h2 v-else >予約状況</h2>
+        <h2 class="h2" v-if="notReserve" >予約店舗はございません</h2>
+        <h2 class="h2" v-else >予約状況</h2>
         <div>
           <div class="reserve-info" v-for="(reserve,index) in reserves" :key="index">
             <div class="reserve-top flex">
@@ -198,6 +198,7 @@ img{
   height:30px;
   width:30px;
 }
+
 /*///////////////
     予約状況
 ///////////////*/
@@ -335,5 +336,11 @@ vue-star .fa {
     width: 80%;
     margin: 0 auto;
   }
+}
+@media screen and (max-width:320px){
+  .heart{
+  padding-left:10px;
+  color:#F05654;
+}
 }
 </style>
