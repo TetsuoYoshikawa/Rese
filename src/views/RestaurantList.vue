@@ -67,9 +67,9 @@
                 >詳しく見る
               </button>
               <div class="flex-2">
-                <v-icon name="heart" scale="2" class="heart" @click="favoritePost(restaurant)"
-                  v-if="restaurant.favorites.length === 0">
-                </v-icon>
+                <img src="../assets/heart.png" class="heart" @click="favoritePost(restaurant)"
+                v-if="restaurant.favorites.length === 0" 
+                style="height:30px;width:30px;"/>
                 <img class="heart" src="../assets/heart_red.png" @click="favoriteDelete(restaurant)" style="height:30px;width:30px;"
                 v-else />
                 <p class="tag-2" v-if="$store.state.auth === false">{{restaurant.favorites.length}}</p>
@@ -84,7 +84,6 @@
 
 <script>
 import 'vue-awesome/icons';
-import Icon from 'vue-awesome/components/Icon';
 import axios from "axios";
 export default{
   props:['id'],
@@ -204,9 +203,6 @@ export default{
           this.genres = response.data.data;
         })
     },
-  },
-  components:{
-    'v-icon':Icon,
   },
   created(){
     this.getRestaurant();
