@@ -59,8 +59,8 @@
                 <div class="flex">
                   <button @click="
                   $router.push({
-                  path:'/detail/' + restaurant.id,
-                  params:{id:restaurant.id}})">詳しく見る</button>
+                  path:'/detail/' + restaurant.restaurant_id,
+                  params:{id:restaurant.restaurant_id}})">詳しく見る</button>
                   <img class="heart" src="../assets/heart_red.png"
                   @click="favoriteDelete(restaurant)"
                   style="height:40px;width:40px;"
@@ -307,6 +307,11 @@ button{
   text-align: center;
   cursor: pointer;
   box-shadow: 5px 5px rgb(37, 49, 55);
+}
+button:active{
+  box-shadow: none;
+  position: relative;
+  top: 5px;
 }
 vue-star {
 position: relative;

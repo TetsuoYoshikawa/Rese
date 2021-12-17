@@ -52,7 +52,7 @@
                   <div>★☆☆☆☆</div>
                 </td>
                 <td>
-                  <div v-if="review.user_id === $store.state.user_id">
+                  <div v-if="review.user_id === $store.state.user_id && $store.state.auth == true">
                     <button @click="openModal(review.id)">変更</button>
                     <button @click="deleteReview(review)">削除</button>
                   </div>
@@ -98,7 +98,8 @@ export default {
         });
     },
     postReview(restaurant){
-      axios
+      if(this.$store.state.auth == true){
+        axios
         .post("https://infinite-beyond-20743.herokuapp.com/api/auth/reviews",{
           user_id:this.$store.state.user_id,
           restaurant_id:restaurant.id,
@@ -111,8 +112,12 @@ export default {
         })
         .catch((response) => {
           console.log(response);
-          alert('予約できません。もう一度、お試しください');
+          alert('投稿できません。もう一度、お試しください');
         });
+      }else{
+        alert('ログインしてください');
+        this.$router.replace('/login');
+      }
     },
     deleteReview(review){
       axios

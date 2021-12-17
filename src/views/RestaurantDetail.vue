@@ -21,7 +21,7 @@
           <button @click="$router.push({
             path:'/review/' + restaurant.id,
             params:{id:restaurant.id}})"
-            style="color:white">レビューを見る/書く
+            style="color:white;margin-left: 40px;">レビューを見る/書く
           </button>
         </div>
       </div>
@@ -31,8 +31,9 @@
           <div class="reservation" >
             <div class="card">
               <form>
-                <ul class="col-3 mx-auto" style="width: 300px;">
-                  <li class="date" >
+                <ul class="col-3 mx-auto">
+                  <li class="date flex-2" >
+                    <fa-icon class="icon confirm_icon" icon="calendar"></fa-icon>
                     <datetime
                       label="日付を選択してください"
                       format="YYYY-MM-DD"
@@ -49,7 +50,8 @@
                   </li>
                 </ul>
                 <ul>
-                  <li class="time" style="width: 300px;">
+                  <li class="time flex-2" style="width:100%;">
+                    <fa-icon class="icon confirm_icon" icon="clock"></fa-icon>
                     <vuejs-timepicker
                     v-model="time"
                     placeholder="時間を入力してください"
@@ -62,13 +64,13 @@
                     input-width="100%"
                     :hour-range="[[10, 23]]"
                     minute-interval="15"
-                    hide-disabled-hours
-                    style="width:300px">
+                    hide-disabled-hours>
                     </vuejs-timepicker>
                   </li>
                 </ul>
                 <ul>
-                  <li class="number">
+                  <li class="number flex-2">
+                    <fa-icon class="icon confirm_icon" icon="users"></fa-icon>
                     <select  v-model="number">
                       <option value="">人数を入力してください</option>
                       <option v-for="n in 20" :key="n">{{n}}</option>
@@ -86,6 +88,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 import axios from "axios";
 import VueTimepicker from 'vue2-timepicker';
 import datetime from "vue-ctk-date-time-picker";
@@ -95,6 +98,11 @@ import 'vue2-datepicker/index';
 import {ja} from 'vuejs-datepicker/dist/locale';
 import Headers from '../components/Headers.vue';
 import moment from "moment";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+library.add(fas);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
   props:["id"],
   data () {
@@ -143,6 +151,7 @@ export default {
         });
     },
     postReservation(){
+      if(this.$store.state.auth == true){
       axios
         .post("https://infinite-beyond-20743.herokuapp.com/api/auth/reservations",{
           user_id:this.$store.state.user_id,
@@ -159,6 +168,10 @@ export default {
           console.log(response);
           alert('予約できません。もう一度、お試しください');
         });
+      }else{
+        alert('ログインしてください');
+        this.$router.replace('/login');
+      }
     },
     reviewOpen() {
       this.reviewCard = true;
@@ -174,6 +187,7 @@ export default {
     datetime,
     'vuejs-timepicker': VueTimepicker,
     //'vuejs-datepicker':vueDatepicker
+    'fa-icon':FontAwesomeIcon,
   },
 }
 </script>
@@ -205,7 +219,8 @@ export default {
   background-color:#ff7300;
 }
 .restaurant-title{
-  padding:5px 0 0 20px;;
+  padding:5px 0 0 20px;
+  color:white;
 }
 h2{
   font-size:20px;
@@ -233,13 +248,14 @@ h2{
 //////////// */
 .reservation-detail{
   box-shadow: 2px 2px 2px;
-  height:590px;
+  height:650px;
 }
 .title{
   background-color:#ff7300;
-  height: 80px;
-  line-height: 80px;
+  height: 70px;
+  line-height: 70px;
   padding-left: 20px;
+  color: #fff;
 }
 .reservation {
   width:90%;
@@ -255,6 +271,15 @@ ul{
 .card {
   padding: 20px 40px;
 }
+.flex-2{
+  display: flex;
+}
+.icon {
+  width: 30px;
+  height: auto;
+  color: gray;
+  margin-right: 20px;
+}
 .form {
   background-color: white;
   padding:20px 30px;
@@ -263,9 +288,8 @@ ul{
 }
 select {
   display: inline-block;
-  width: 300px;
-  height:30px;
-  margin-bottom:30px;
+  width: 100%;
+  height:35px;
 }
 /*//////////////////////
 //   ボタンオプション   //
@@ -273,7 +297,6 @@ select {
 button{
   padding:10px 40px;
   margin-top:20px;
-  margin-left: 40px;
   background-color:#ff7300;
   border:none;
   border-radius: 10px;

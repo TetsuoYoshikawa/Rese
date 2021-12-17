@@ -48,20 +48,23 @@ button{
   margin:30px 0 10px 0;
 }
 button{
-  margin:30px 0 10px 0;
-  position: relative;
+  padding:10px 40px;
+  margin-left: 20px;
+  background-color:#ff7300;
+  border:none;
+  border-radius: 10px;
+  color: white;
+  margin:20px 0;
+  border:none;
+  border-radius: 10px;
   display: inline-block;
-  padding: 0.25em 2.0em;
-  text-decoration: none;
-  color: #FFF;
-  background: #ff7300;
-  border-bottom: solid 2px #d27d00;
-  border-radius: 4px;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
-  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 5px 5px rgb(37, 49, 55);
 }
 button:active{
-  border-bottom: solid 2px #fd9535;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+  box-shadow: none;
+  position: relative;
+  top: 5px;
 }
 </style>

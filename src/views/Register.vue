@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <Header />
@@ -23,6 +22,7 @@
           <div class ="underline"></div>
         </div>
         <button class="button" @click="register">登録</button>
+        <p>会員登録がお済みな方は<a href="/login">こちら</a>から</p>
       </div>
     </div>
   </div>
@@ -67,7 +67,7 @@ export default {
    登録画面
 ///////////*/
 .card {
- margin: 200px auto;
+ margin: 120px auto;
  width: 350px;
  background: #fff;
  border-radius: 10px;
@@ -116,15 +116,26 @@ input{
   transition: transform 0.18s ease-out;
 }
 button{
-  padding:10px 20px;
+  padding:10px 40px;
   margin-left: 20px;
   background-color:#ff7300;
   border:none;
   border-radius: 10px;
   color: white;
+  margin:20px 0;
+  border:none;
+  border-radius: 10px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 5px 5px rgb(37, 49, 55);
 }
-.button:active{
-  border-bottom: solid 2px #fd9535;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+button:active{
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
+a{
+  color:blue;
 }
 </style>

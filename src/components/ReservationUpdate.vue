@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 import axios from "axios";
 import VueTimepicker from 'vue2-timepicker';
 import datetime from "vue-ctk-date-time-picker";
@@ -70,6 +71,11 @@ import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css";
 import 'vue2-timepicker/dist/VueTimepicker.css';
 import 'vue2-datepicker/index';
 import moment from "moment";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+library.add(fas);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
   props: ["reserve"],
   data() {
@@ -117,6 +123,9 @@ export default {
           alert('予約できません。もう一度、お試しください');
         });
     },
+    component:{
+      'fa-icon':FontAwesomeIcon,
+    }
   },
 };
 </script>

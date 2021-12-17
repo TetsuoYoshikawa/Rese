@@ -5,7 +5,7 @@
     <h2 class="header-title" @click="$router.push({path: '/'}, () => {})">RESE</h2>
       <div class="right text-area">
         <nav class="nav" id="nav" :class="{in:active}">
-          <ul v-if="$store.state.auth" key="auth" class="menu" >
+          <ul v-if="$store.state.auth === true" key="auth" class="menu" >
             <li class="moble-ul left">
               <a @click="$router.push({path: '/'}, () => {})">
               店舗一覧
@@ -54,7 +54,7 @@
       </div>
 
       <nav :class="{ open: menu }" class="menu_content">
-        <ul class="hamburger_memu">
+        <ul class="hamburger_memu" v-if="$store.state.auth === true">
           <li>
             <a @click="$router.push({path: '/'}, () => {})">
               店舗一覧
@@ -65,16 +65,32 @@
               マイページ
             </a>
           </li>
-          <li v-if="this.$store.state.auth == false">
+          <li v-if="$store.state.administrator === 1">
             <a @click="$router.push({path: '/admin'}, () => {})">
               管理者ページ
             </a>
           </li>
           <li @click="logout" v-else>
-            <font-awesome-icon icon="check" class="hamburger_icon" />
             ログアウト
           </li>
         </ul>
+        <ul v-else class="hamburger_memu">
+            <li>
+              <a @click="$router.push({path: '/'}, () => {})">
+              店舗一覧
+              </a>
+            </li>
+            <li>
+              <a @click="$router.push({path: '/register'}, () => {})">
+              会員登録
+              </a>
+            </li>
+            <li>
+              <a @click="$router.push({path: '/login'}, () => {})">
+              ログイン
+              </a>
+            </li>
+          </ul>
       </nav>
     </div>
 </template>

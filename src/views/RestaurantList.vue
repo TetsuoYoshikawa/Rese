@@ -3,7 +3,7 @@
     <div class="header">
       <img class="header-img" src="../assets/store.png" />
       <h2 class="header-title" @click="$router.push({path: '/'}, () => {})">RESE</h2>
-      <div class="right flex nav" id="nav" :class="{in:active}">
+      <div class="right  nav" id="nav" :class="{in:active}">
         <select v-model="searchData_prefecture">
           <option value="">All Prefecutes</option>
           <option v-for="prefecture in prefectures" :key="prefecture.name">{{prefecture.name}}</option>
@@ -14,7 +14,7 @@
         </select>
         <input type="text" placeholder="Restaurant Name" v-model="searchData_restaurant">
       </div>
-      <div class="mypage">
+      <div class="mypage ">
         <button type="submit" @click="$router.push({path: '/mypage'}, () => {})">マイページ</button>
       </div>
     </div>
@@ -29,20 +29,22 @@
             <div class="tag">
               <p>#{{restaurant.prefecture.name}} #{{restaurant.genre.name}}</p>
             </div>
-            <div class="button">
+            <div class="flex-2 button">
               <button @click="
                 $router.push({
                 path:'/detail/' + restaurant.id,
                 params:{id:restaurant.id}})"
-                style="color:white">詳しく見る
-                </button>
-                <div>
-                  <v-icon name="heart" scale="2" class="heart" @click="favoritePost(restaurant)"
+                style="color:white"
+                >詳しく見る
+              </button>
+              <div class="flex-2">
+                <v-icon name="heart" scale="2" class="heart" @click="favoritePost(restaurant)"
                   v-if="restaurant.favorites.length === 0">
-                  </v-icon>
-                  <img class="heart" src="../assets/heart_red.png" @click="favoriteDelete(restaurant)" style="height:30px;width:30px;"
-                  v-else />
-                </div>
+                </v-icon>
+                <img class="heart" src="../assets/heart_red.png" @click="favoriteDelete(restaurant)" style="height:30px;width:30px;"
+                v-else />
+                <p class="tag-2" v-if="$store.state.auth === false">{{restaurant.favorites.length}}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -119,6 +121,7 @@ export default{
         });
     },
     async favoritePost(restaurant){
+      if(this.$store.state.auth == true){
       await axios
       .post('https://infinite-beyond-20743.herokuapp.com/api/auth/favorites',{
         user_id:this.$store.state.user_id,
@@ -136,6 +139,10 @@ export default{
         console.log(response);
         alert('ログインしてください');
       })
+      }else{
+        alert('ログインしてください');
+        this.$router.replace('/login');
+      }
     },
     async favoriteDelete(restaurant){
       await axios
@@ -238,10 +245,6 @@ input{
 /*////////////////
     店舗情報
 ////////////////*/
-.button{
-  display: flex;
-  flex-wrap: wrap;
-}
 .item{
   width:100%;
   display: flex;
@@ -269,8 +272,14 @@ input{
   font-size:20px;
   padding-bottom: 15px;
 }
+.tag-2{
+  padding-left:10px;
+  font-size:20px;
+  padding-bottom: 15px;
+  margin-top: 5px;
+}
 .heart{
-  padding-left:70px;
+  padding-left:300%;
   color:#F05654;
 }
 .left {
@@ -290,11 +299,14 @@ input{
 .menu a {
   cursor: pointer;
 }
+.flex-2{
+  display: flex;
+}
 .hamburger {
   display: none;
 }
 button{
-  padding:10px 20px;
+  padding:10px 5px;
   margin-left: 20px;
   background-color:#ff7300;
   border:none;
@@ -309,11 +321,7 @@ button:active{
   position: relative;
   top: 5px;
 }
-@media screen and (max-width:1023px){
-  .item{
-    width:90%;
-  }
-}
+
 @media screen and (max-width:966px){
   .restaurant-card{
     width:240px;
@@ -322,46 +330,20 @@ button:active{
     width:100%;
   }
 }
-@media screen and (max-width:768px){
-  .item{
-    margin: 0 auto;
+@media screen and (max-width:320px){
+  .restaurant-card{
+    height:450px;
+    box-shadow: 2px 2px 2px black;
+    margin:20px 20px;
   }
-    a {
-    text-decoration: none;
-    color: white;
-  }
-  .nav {
-    position: absolute;
-    height: 100vh;
-    transition: 0.7s;
-  }
-  .nav ul li {
-    list-style-type: none;
-    margin-top: 50px;
-    width: 100px;
-  }
-  .ber {
-  padding-left: 0px;
-  }
-  .text-area {
-    background: #ff7300;
-    display: inline;
+  select{
+    padding:5px;
   }
   .mypage{
-  margin-left: 45%;
-  border-radius: 10px;
+    display: none;
   }
-  @media screen and (max-width:480px){
-  .mypage{
-    margin-left: 30%;
-    border-radius: 10px;
-    }
-  }
-    @media screen and (max-width:350px){
-  .mypage{
-    margin-left: 10%;
-    border-radius: 10px;
-    }
+  .heart{
+    padding-left: 200%;
   }
 }
 </style>
