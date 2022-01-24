@@ -184,7 +184,7 @@ export default{
 ///////////////*/
 .admin{
   text-align: center;
-  padding-top:100px;
+  padding-top:30px;
 }
 .card {
   margin: 50px auto;

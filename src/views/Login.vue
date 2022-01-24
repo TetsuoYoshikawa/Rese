@@ -17,6 +17,9 @@
             <div class="underline"></div>
           </div>
           <button class="button" @click="login">ログイン</button>
+          <div>
+            <button class="button" @click="guestlogin">ゲストログイン</button>
+          </div>
           <p>会員登録がまだな方は<a href="/register">こちら</a>から</p>
         </div>
       </div>
@@ -40,6 +43,12 @@ export default {
       this.$store.dispatch("login",{
         email:this.email,
         password:this.password
+      });
+    },
+    guestlogin(){
+      this.$store.dispatch("login",{
+        email:"test@test.com",
+        password:"testtest"
       });
     }
   }
